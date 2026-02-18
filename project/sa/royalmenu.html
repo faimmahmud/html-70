@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motorcycles - Royal Enfield Bangladesh</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+        crossorigin="anonymous"/>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+
+  <style>
+    :root {
+      --re-red: #d32f2f;
+      --re-dark: #0a0a0a;
+      --re-darker: #050505;
+      --card-bg: #111111;
+      --text-muted: #aaaaaa;
+      --text-light: #e0e0e0;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--re-dark);
+      color: var(--text-light);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Hero */
+    .hero {
+      height: 90vh;
+      min-height: 700px;
+      background: linear-gradient(rgba(10,10,10,0.75), rgba(10,10,10,0.4)),
+                  url('https://images.unsplash.com/photo-1558981806-ec64d38f017b?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 2rem;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1.4s forwards 0.4s;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-size: 5.5rem;
+      font-weight: 900;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 0 15px 40px rgba(0,0,0,0.9);
+    }
+
+    .hero p {
+      font-size: 1.6rem;
+      max-width: 720px;
+      margin: 1.5rem auto;
+      color: #ddd;
+    }
+
+    /* Secondary Nav */
+    .secondary-nav {
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #222;
+    }
+
+    .nav-link {
+      color: #ccc !important;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--re-red) !important;
+    }
+
+    /* Filters */
+    .filters {
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid #444;
+      color: #ccc;
+      margin: 0 0.6rem 1rem;
+      padding: 0.8rem 1.8rem;
+      font-weight: 600;
+      transition: all 0.4s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--re-red);
+      border-color: var(--re-red);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Bike Cards */
+    .bike-card {
+      background: var(--card-bg);
+      border: none;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.6s cubic-bezier(0.23,1,0.32,1);
+      opacity: 0;
+      transform: translateY(60px);
+    }
+
+    .bike-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bike-card:hover {
+      transform: translateY(-25px) scale(1.05);
+      box-shadow: 0 40px 100px rgba(211,47,47,0.22);
+    }
+
+    .img-wrapper {
+      height: 380px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bike-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s ease;
+    }
+
+    .bike-card:hover .bike-img {
+      transform: scale(1.18) rotate(2deg);
+    }
+
+    .red-glow {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(211,47,47,0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.6s;
+    }
+
+    .bike-card:hover .red-glow {
+      opacity: 1;
+    }
+
+    .card-body {
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+    }
+
+    .bike-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      margin-bottom: 0.8rem;
+      letter-spacing: 1.5px;
+    }
+
+    .bike-desc {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      margin-bottom: 1.8rem;
+      min-height: 50px;
+    }
+
+    .specs-teaser {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.6s ease;
+      color: #bbb;
+      font-size: 0.95rem;
+      text-align: left;
+      margin: 1rem 0;
+    }
+
+    .bike-card:hover .specs-teaser {
+      opacity: 1;
+      max-height: 180px;
+    }
+
+    .btn-re {
+      background: transparent;
+      border: 2px solid var(--re-red);
+      color: var(--re-red);
+      font-weight: 700;
+      padding: 0.9rem 2.4rem;
+      border-radius: 0;
+      transition: all 0.4s;
+    }
+
+    .btn-re:hover {
+      background: var(--re-red);
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(211,47,47,0.5);
+    }
+
+    /* Scroll animation helper */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease;
+    }
+
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 992px) {
+      .hero h1 { font-size: 4rem; }
+      .hero { min-height: 600px; }
+    }
+  </style>
+</head>
+<body>
+
+
+
+  <!-- Secondary Nav -->
+  <nav class="navbar navbar-expand-lg secondary-nav">
+    <div class="container-fluid px-5">
+      <a class="navbar-brand text-white fw-bold fs-4" href="#">Royal Enfield</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#secNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="secNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">All</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Cruiser</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Roadster</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Adventure</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Filters -->
+  <section class="filters">
+    <div class="container">
+      <button class="filter-btn active">All Models</button>
+      <button class="filter-btn">350cc</button>
+      <button class="filter-btn">650cc</button>
+      <button class="filter-btn">New 2025</button>
+    </div>
+  </section>
+
+  <!-- Bike Grid -->
+  <section class="container py-5">
+    <div class="row g-5">
+
+      <!-- Bullet 350 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="bike-card fade-section">
+          <div class="img-wrapper">
+            <img src="https://images.unsplash.com/photo-1558981806-ec64d38f017b?auto=format&fit=crop&q=80&w=1200" 
+                 class="bike-img" alt="Bullet 350">
+            <div class="red-glow"></div>
+          </div>
+          <div class="card-body">
+            <h3 class="bike-title">Bullet 350</h3>
+            <p class="bike-desc">The heartbeat of pure motorcycling. Legendary thump, reborn legend.</p>
+            <div class="specs-teaser">
+              • 349cc J-series engine<br>
+              • 20.2 bhp @ 6100 rpm<br>
+              • Single channel ABS<br>
+              • USB charging port
+            </div>
+            <a href="https://www.royalenfield.com/bd/en/motorcycles/bullet-350" class="btn btn-re">Configure & Explore</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Classic 350 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="bike-card fade-section">
+          <div class="img-wrapper">
+            <img src="https://images.unsplash.com/photo-1519643381401-22c77e60520e?auto=format&fit=crop&q=80&w=1200" 
+                 class="bike-img" alt="Classic 350">
+            <div class="red-glow"></div>
+          </div>
+          <div class="card-body">
+            <h3 class="bike-title">Classic 350</h3>
+            <p class="bike-desc">Timeless silhouette. Chrome soul. Eternal style icon.</p>
+            <div class="specs-teaser">
+              • 349cc air-oil cooled<br>
+              • Dual-channel ABS option<br>
+              • Semi-digital console<br>
+              • 6-speed gearbox
+            </div>
+            <a href="https://www.royalenfield.com/bd/en/motorcycles/classic-350" class="btn btn-re">Configure & Explore</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hunter 350 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="bike-card fade-section">
+          <div class="img-wrapper">
+            <img src="https://images.unsplash.com/photo-1567808291548-fc3ee04dbcf0?auto=format&fit=crop&q=80&w=1200" 
+                 class="bike-img" alt="Hunter 350">
+            <div class="red-glow"></div>
+          </div>
+          <div class="card-body">
+            <h3 class="bike-title">Hunter 350</h3>
+            <p class="bike-desc">Urban predator. Sharp handling. City-born rebel.</p>
+            <div class="specs-teaser">
+              • Lightweight frame<br>
+              • 13L fuel tank<br>
+              • 150mm ground clearance<br>
+              • LED headlamp
+            </div>
+            <a href="https://www.royalenfield.com/bd/en/motorcycles/hunter-350" class="btn btn-re">Configure & Explore</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+   <video autoplay muted loop controls playsinline>
+  <source src="./5277719-hd_1920_1080_30fps.mp4" type="" style="width: 100%;" />
+</video>
+
+  <!-- Bootstrap JS + Scroll Observer -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-section, .hero-content').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+    <!-- Footer – now properly Royal Enfield styled -->
+  <footer>
+    <div class="footer-container">
+
+      <!-- First column – Our World with Royal Enfield TV prominent (most authentic placement) -->
+      <div class="footer-column">
+        <h3>Our World</h3>
+        <ul>
+          <li><a href="https://tv.royalenfield.com/" target="_blank">Royal Enfield TV</a></li>
+          <li><a href="https://www.royalenfield.com/bd/en/our-world/since-1901">Since 1901</a></li>
+          <li><a href="https://www.royalenfield.com/bd/en/our-world">Overview</a></li>
+          <li><a href="https://www.royalenfield.com/bd/en/our-world/motoculture">MotoCulture</a></li>
+          <li><a href="#">Wallpapers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Motorcycles</h3>
+        <ul>
+          <li><a href="https://www.royalenfield.com/bd/en/motorcycles/bullet-350">Bullet 350</a></li>
+          <li><a href="https://www.royalenfield.com/bd/en/motorcycles/classic-350">Classic 350</a></li>
+          <li><a href="https://www.royalenfield.com/bd/en/motorcycles/hunter-350">Hunter 350</a></li>
+          <li><a href="https://www.royalenfield.com/bd/en/motorcycles/meteor-350">Meteor 350</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="https://www.royalenfield.com/bd/en/locate-us">Locate Us</a></li>
+          <li><a href="https://www.royalenfield.com/bd/en/after-sales">After Sales</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Service Centres</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>About Us</h3>
+        <ul>
+          <li><a href="#">Eicher Motors</a></li>
+          <li><a href="#">Legacy</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/RoyalEnfield" target="_blank"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/royalenfield" target="_blank"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.youtube.com/royalenfield" target="_blank"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        © 2026 Royal Enfield. *T&C apply. Images shown may differ from actual product.
+      </div>
+      <div>
+        <a href="#">Privacy Policy</a>  • 
+        <a href="#">Terms & Conditions</a>  • 
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Your existing JavaScript remains unchanged -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+<!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Custom styles (you can move to external royalenfielda.css) -->
+  <style>
+    :root {
+      --re-red: #d32f2f;
+      --re-black: #111111;
+      --re-dark-gray: #1a1a1a;
+      --re-light-gray: #cccccc;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .re-header {
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .re-nav-link {
+      color: #fff !important;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .re-nav-link:hover {
+      color: var(--re-red) !important;
+    }
+
+    .btn-re {
+      background-color: var(--re-red);
+      color: white;
+      border: none;
+      border-radius: 0;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 10px 24px;
+      transition: all 0.3s;
+    }
+
+    .btn-re:hover {
+      background-color: #b71c1c;
+      transform: translateY(-2px);
+    }
+
+    .secondary-nav {
+      background: var(--re-black) !important;
+      border-bottom: 1px solid #333;
+    }
+
+    .secondary-nav .nav-link {
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+    }
+
+    .secondary-nav .nav-link:hover {
+      color: var(--re-red) !important;
+    }
+
+    footer {
+      background-color: var(--re-black);
+      color: var(--re-light-gray);
+      padding: 60px 10% 40px;
+      font-size: 14px;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-column {
+      flex: 1 1 220px;
+      margin: 20px 15px;
+    }
+
+    .footer-column h3 {
+      color: var(--re-red);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #333;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column ul li {
+      margin: 12px 0;
+    }
+
+    .footer-column ul li a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .footer-column ul li a:hover {
+      color: #fff;
+    }
+
+    .social-icons a {
+      color: #aaa;
+      margin-right: 18px;
+      font-size: 18px;
+      transition: color 0.25s;
+    }
+
+    .social-icons a:hover {
+      color: var(--re-red);
+    }
+
+    .footer-bottom {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .footer-bottom a {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 991px) {
+      .footer-container {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+ 
+</html>
