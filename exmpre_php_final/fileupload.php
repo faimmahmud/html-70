@@ -16,7 +16,7 @@ if (isset($_POST["upload"])) {
     $filesize = $file["size"];
     $tmp = $file["tmp_name"];
 
-    $minSize = 400 * 1024; // 400 KB minimum
+    $minSize = 400 * 1024; // 400 KB
 
     if ($filesize < $minSize) {
         $uploadMessage = "❌ File too small! Minimum 400 KB required.";
@@ -27,7 +27,7 @@ if (isset($_POST["upload"])) {
         }
 
         move_uploaded_file($tmp, "uploads/" . $filename);
-        $uploadMessage = "✅ Image uploaded successfully!";
+        $uploadMessage = "✅ File uploaded successfully!";
     }
 }
 ?>
@@ -38,8 +38,8 @@ if (isset($_POST["upload"])) {
 
 <!-- Upload Form -->
 <form method="POST" enctype="multipart/form-data">
-    <h3>Upload Image (Min 400 KB)</h3>
-    <input type="file" name="file" accept="image/*" required><br><br>
+    <h3>Upload File (Min 400 KB)</h3>
+    <input type="file" name="file" required><br><br>
     <button type="submit" name="upload">Upload</button>
 </form>
 
@@ -47,9 +47,9 @@ if (isset($_POST["upload"])) {
 
 <hr>
 
-<h3>Uploaded Images</h3>
+<h3>Uploaded Files</h3>
 
-<div style="display:flex; flex-wrap:wrap; gap:10px;">
+<div style="display:flex; flex-wrap:wrap; gap:15px;">
 <?php
 $dir = "uploads";
 
@@ -60,17 +60,25 @@ if (is_dir($dir)) {
         if ($file != "." && $file != "..") {
 
             $path = "uploads/" . $file;
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
-            echo "
-                <div style='border:1px solid #ccc; padding:10px;'>
-                    <img src='$path' width='150' height='150' style='object-fit:cover;'><br>
-                    <a href='$path' target='_blank'>Open</a>
-                </div>
-            ";
+            echo "<div style='border:1px solid #ccc; padding:10px; width:180px; text-align:center;'>";
+
+            // Image preview
+            if (in_array($ext, ["jpg", "jpeg", "png", "gif", "webp"])) {
+                echo "<img src='$path' width='150' height='150' style='object-fit:cover;'><br>";
+            } else {
+                // Other file icon
+                echo "📄 File<br>";
+            }
+
+            echo "<a href='$path' target='_blank'>$file</a>";
+
+            echo "</div>";
         }
     }
 } else {
-    echo "No images uploaded yet.";
+    echo "No files uploaded yet.";
 }
 ?>
 </div>
