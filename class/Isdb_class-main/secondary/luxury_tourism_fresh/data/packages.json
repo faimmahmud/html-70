@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Maldives Horizon Escape",
+    "location": "Mal\u00e9, Maldives",
+    "price": "$1,899",
+    "rating": 4.9,
+    "days": "6 Days",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
+    "tag": "Luxury Beach",
+    "desc": "Private villas, lagoon views, and curated sunset experiences."
+  },
+  {
+    "id": 2,
+    "title": "Swiss Alpine Grand Tour",
+    "location": "Zermatt, Switzerland",
+    "price": "$2,450",
+    "rating": 4.8,
+    "days": "7 Days",
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80",
+    "tag": "Mountain Icon",
+    "desc": "Snow peaks, scenic rail journeys, and five-star wellness stays."
+  },
+  {
+    "id": 3,
+    "title": "Dubai Sky Experience",
+    "location": "Dubai, UAE",
+    "price": "$1,350",
+    "rating": 4.7,
+    "days": "4 Days",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1600&q=80",
+    "tag": "Future City",
+    "desc": "Luxury shopping, desert motion, rooftop dining, and skyline views."
+  },
+  {
+    "id": 4,
+    "title": "Bali Serenity Circle",
+    "location": "Ubud, Indonesia",
+    "price": "$1,120",
+    "rating": 4.8,
+    "days": "5 Days",
+    "image": "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=1600&q=80",
+    "tag": "Wellness",
+    "desc": "Rice terraces, spa rituals, and calm premium villas."
+  },
+  {
+    "id": 5,
+    "title": "Santorini White Cliffs",
+    "location": "Santorini, Greece",
+    "price": "$1,760",
+    "rating": 4.9,
+    "days": "5 Days",
+    "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80",
+    "tag": "Romance",
+    "desc": "Cliffside sunsets, signature dining, and iconic white architecture."
+  },
+  {
+    "id": 6,
+    "title": "Tokyo Neon Pulse",
+    "location": "Tokyo, Japan",
+    "price": "$2,210",
+    "rating": 4.8,
+    "days": "6 Days",
+    "image": "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1600&q=80",
+    "tag": "Urban Luxe",
+    "desc": "Design hotels, night city energy, and elevated cultural routes."
+  }
+]

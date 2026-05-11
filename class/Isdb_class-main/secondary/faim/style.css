@@ -1,0 +1,67 @@
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f7f8fb;
+  color: #111827;
+}
+
+.brand-dot {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  background: #0d6efd;
+  border-radius: 999px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.hero-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
+}
+
+.py-lg-6 {
+  padding-top: 5rem !important;
+  padding-bottom: 5rem !important;
+}
+
+.search-box {
+  background: rgba(255,255,255,0.96);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(15,23,42,.06);
+}
+
+.hero-card {
+  border-radius: 2rem;
+  background: #fff;
+  padding: 1.25rem;
+}
+
+.hero-img {
+  height: 210px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.destination-image {
+  height: 240px;
+  object-fit: cover;
+}
+
+.feature-box {
+  border: 1px solid rgba(15,23,42,.05);
+}
+
+.card {
+  border-radius: 1.5rem;
+}
+
+.modal-content {
+  border: none;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+.btn-primary {
+  box-shadow: 0 10px 20px rgba(13,110,253,.18);
+}
